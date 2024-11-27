@@ -18,6 +18,11 @@ io.on('connection', function (socket) {
   });
   socket.on('message', function (obj) {
     var toSend = obj.split(' ');
+
+    toSend = toSend.map(function (el) {
+      return isNaN(el) ? el : parseFloat(el);
+    });
+
     oscClient.send(...toSend);
     console.log('sent WS message to OSC', toSend);
   });
